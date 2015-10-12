@@ -1,0 +1,37 @@
+#!/bin/bash
+
+ICO="$HOME/Baterai/battery_low.png" #ICOn low battery
+ICON="$HOME/Baterai/battery_full.png" #ICON full battery
+ICONC="$HOME/Baterai/battery_charging.png" #ICON Charging
+ICOND="$HOME/Baterai/battery_discharging.png" #ICON Discharging
+MUSI="$HOME/Baterai/sirens.mp3" #MUSIc sirens low battery
+MUSIC="$HOME/Baterai/train.mp3" #MUSIC train full battery
+
+while true; do
+	export DISPLAY=:0.0
+	if [ $(cat /sys/class/power_supply/AC/online) -eq 0 ]; then
+		if [ $(acpi -b | grep -P -o '[0-9]+(?=%)') -le 15 ]; then
+			notify-send "Battery level is $(acpi -b | grep -P -o \
+			'[0-9]+(?=%)')%!" " Please plug your AC adapter!" \
+			-i "$ICO" -t 10000
+			mpg123 $MUSI
+			if [ $(cat /sys/class/power_supply/AC/online) -eq 1 ]; then
+				pidof mpg123 | xargs kill -9
+				notify-send "Battery Charging" "Level: $(acpi -b | \
+				grep -P -o '[0-9]+(?=%)')%!" -i "$ICONC" -t 10000
+			fi
+		fi
+	else
+		if [ $(acpi -b | grep -P -o '[0-9]+(?=%)') -eq 100 ]; then
+			notify-send "Battery level is $(acpi -b | grep -P -o \
+			'[0-9]+(?=%)')%!" "Please unplug your AC adapter!" \
+			 -i "$ICON" -t 10000
+			mpg123 $MUSIC
+			if [ $(cat /sys/class/power_supply/AC/online) -eq 0 ]; then
+				pidof mpg123 | xargs kill -9
+				notify-send "Battery Discharging" "Level: $(acpi -b \
+				| grep -P -o '[0-9]+(?=%)')%!" -i "$ICOND" -t 10000 
+			fi
+		fi
+	fi
+done
