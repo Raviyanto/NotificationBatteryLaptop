@@ -2,8 +2,8 @@
 Notification Battery Laptop
 
 1. Install acpi
-2. Install mpg123
-2. Install notification:
+1. Install mpg123
+1. Install notification:
     a. LXQT: lxqt-notificationd
     b. GNOME Flashback: notification-daemon
     c. MATE: mate-notification-daemon
