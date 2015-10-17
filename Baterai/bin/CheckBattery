@@ -10,18 +10,6 @@ MUSIC="$HOME/Baterai/train.mp3" #MUSIC train full battery
 while true; do
 	export DISPLAY=:0.0
 	if on_ac_power; then
-		if [ $(acpi -b | grep -P -o '[0-9]+(?=%)') -le 15 ]; then
-			notify-send "Battery level is $(acpi -b | grep -P -o \
-			'[0-9]+(?=%)')%!" " Please plug your AC adapter!" \
-			-i "$ICO" -t 10000
-			mpg123 $MUSI
-			if on_ac_power; then
-				pidof mpg123 | xargs kill -9
-				notify-send "Battery Charging" "Level: $(acpi -b | \
-				grep -P -o '[0-9]+(?=%)')%!" -i "$ICONC" -t 10000
-			fi
-		fi
-	else
 		if [ $(acpi -b | grep -P -o '[0-9]+(?=%)') -eq 100 ]; then
 			notify-send "Battery level is $(acpi -b | grep -P -o \
 			'[0-9]+(?=%)')%!" "Please unplug your AC adapter!" \
@@ -31,6 +19,18 @@ while true; do
 				pidof mpg123 | xargs kill -9
 				notify-send "Battery Discharging" "Level: $(acpi -b \
 				| grep -P -o '[0-9]+(?=%)')%!" -i "$ICOND" -t 10000 
+			fi
+		fi
+	else
+		if [ $(acpi -b | grep -P -o '[0-9]+(?=%)') -le 15 ]; then
+			notify-send "Battery level is $(acpi -b | grep -P -o \
+			'[0-9]+(?=%)')%!" " Please plug your AC adapter!" \
+			-i "$ICO" -t 10000
+			mpg123 $MUSI
+			if on_ac_power; then
+				pidof mpg123 | xargs kill -9
+				notify-send "Battery Charging" "Level: $(acpi -b | \
+				grep -P -o '[0-9]+(?=%)')%!" -i "$ICONC" -t 10000
 			fi
 		fi
 	fi
