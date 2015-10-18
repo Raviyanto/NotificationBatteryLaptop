@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Notification Battery Laptop
+=======
+# Notification Battery Laptop
+>>>>>>> 45a4ebe222a2f863a36674b4cdc3d7401ddccc17
 
 1. Install acpi (sudo apt-get install acpi)
 1. Install mpg123 (sudo apt-get install mpg123)
@@ -18,6 +22,9 @@ Notification Battery Laptop
 1. chmod +x CheckBattery
 1. cd ..
 1. mv battnot.desktop ~/.config/autostart
+<<<<<<< HEAD
 
 TIP: to configure xfce4-notifyd, run the following
 command: xfce4-notifyd-config
+=======
+>>>>>>> 45a4ebe222a2f863a36674b4cdc3d7401ddccc17
