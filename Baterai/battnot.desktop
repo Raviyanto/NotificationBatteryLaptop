@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Battnot
+GenericName=Battery Notification
+Exec=$HOME/Baterai/bin/CheckBattery
+Type=Application
+Icon=$HOME/Baterai/battnot.png
