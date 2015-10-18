@@ -1,6 +1,7 @@
 [Desktop Entry]
-Name=Battnot
-GenericName=Battery Notification
-Exec=$HOME/Baterai/bin/CheckBattery
 Type=Application
-Icon=$HOME/Baterai/battnot.png
+Name=Battnot
+Comment=Notification Battery
+Exec=sh -c '$HOME/Baterai/bin/CheckBattery'
+StartupNotify=false
+Terminal=false
