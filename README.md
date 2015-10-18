@@ -1,5 +1,4 @@
-# NotificationBatteryLaptop
-Notification Battery Laptop
+# Notification Battery Laptop
 
 1. Install acpi
 1. Install mpg123
