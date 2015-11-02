@@ -4,8 +4,8 @@ ICO="$HOME/Baterai/battery_low.png" #ICOn low battery
 ICON="$HOME/Baterai/battery_full.png" #ICON full battery
 ICONC="$HOME/Baterai/battery_charging.png" #ICON Charging
 ICOND="$HOME/Baterai/battery_discharging.png" #ICON Discharging
-MUSI="$HOME/Baterai/sirens.mp3" #MUSIc sirens low battery
-MUSIC="$HOME/Baterai/train.mp3" #MUSIC train full battery
+MUSI="$HOME/Baterai/reng.mp3" #MUSIc reng low battery
+MUSIC="$HOME/Baterai/blub.mp3" #MUSIC blub full battery
 
 while true; do
 	export DISPLAY=:0.0
@@ -15,10 +15,9 @@ while true; do
 			'[0-9]+(?=%)')%!" "Please unplug your AC adapter!" \
 			 -i "$ICON" -t 10000
 			mpg123 $MUSIC
-			if on_ac_power; then
-				pidof mpg123 | xargs kill -9
+			if [ $(cat /sys/class/power_supply/AC/online) -eq 0 ]; then
 				notify-send "Battery Discharging" "Level: $(acpi -b \
-				| grep -P -o '[0-9]+(?=%)')%!" -i "$ICOND" -t 10000 
+				| grep -P -o '[0-9]+(?=%)')%!" -i "$ICOND" -t 10000
 			fi
 		fi
 	else
@@ -28,7 +27,6 @@ while true; do
 			-i "$ICO" -t 10000
 			mpg123 $MUSI
 			if on_ac_power; then
-				pidof mpg123 | xargs kill -9
 				notify-send "Battery Charging" "Level: $(acpi -b | \
 				grep -P -o '[0-9]+(?=%)')%!" -i "$ICONC" -t 10000
 			fi
